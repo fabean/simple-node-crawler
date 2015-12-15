@@ -1,15 +1,23 @@
 var Crawler = require("simplecrawler");
 var fs = require('fs');
 
-Crawler.interval = 100;
 
-Crawler.crawl("http://www.ymcagreenville.org", function(queueItem) {
+var myCrawler = new Crawler("www.ymcagreenville.org", '/', 80);
 
+myCrawler.interval = 10000;
+myCrawler.maxConcurrency = 1;
+myCrawler.maxDepth = 2;
+
+myCrawler.on("queueadd", function(queueItem, responseBuffer, response) {
+  
+  console.log('we grabbed page:', queueItem.url);
   fs.appendFile("paths.txt", queueItem.url + "\n", function(err) {
     if(err) {
         return console.log(err);
     }
   }); 
-  
-  console.log("Completed fetching resource:", queueItem.url);
 });
+
+myCrawler.start();
+
+
