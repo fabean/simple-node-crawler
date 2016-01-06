@@ -2,9 +2,9 @@ var Crawler = require("simplecrawler");
 var fs = require('fs');
 
 
-var myCrawler = new Crawler("www.ymcagreenville.org", '/', 80);
+var myCrawler = new Crawler("www.ymcacampcullen.org", '/', 80);
 
-myCrawler.interval = 10000;
+myCrawler.interval = 5000;
 myCrawler.maxConcurrency = 1;
 myCrawler.maxDepth = 2;
 
