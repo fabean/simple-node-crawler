@@ -1,21 +1,20 @@
-var Crawler = require("simplecrawler");
-var fs = require('fs');
+const Crawler = require('simplecrawler');
+const fs = require('fs');
 
 
-var myCrawler = new Crawler("www.ymcacampcullen.org", '/', 80);
-
+let myCrawler = new Crawler('http://yoursite.com/');
 myCrawler.interval = 5000;
-myCrawler.maxConcurrency = 1;
-myCrawler.maxDepth = 2;
+myCrawler.maxConcurrency = 2;
+myCrawler.maxDepth = 3;
 
-myCrawler.on("queueadd", function(queueItem, responseBuffer, response) {
-  
+myCrawler.on('queueadd', function(queueItem, responseBuffer, response) {
+
   console.log('we grabbed page:', queueItem.url);
-  fs.appendFile("paths.txt", queueItem.url + "\n", function(err) {
+  fs.appendFile('paths.txt', queueItem.url + "\n", (err) => {
     if(err) {
         return console.log(err);
     }
-  }); 
+  });
 });
 
 myCrawler.start();
